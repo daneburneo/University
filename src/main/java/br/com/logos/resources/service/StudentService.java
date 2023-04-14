@@ -72,7 +72,7 @@ public class StudentService {
             throw new StudentSnnNullException(" SNN invalid! Please, enter with a valid register");
         }
 
-        if (studentValidated.getCourse().equals(null)) {
+        if (studentValidated.getDiscipline().equals(null)) {
             throw new StudentCourseNullException("The Student cannot be empty. Please, type a valid course");
         }
 

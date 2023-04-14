@@ -21,19 +21,19 @@ public class Student {
     private String ssn;
 
     @Column(nullable = false, name = "student_course")
-    private String course;
+    private String discipline;
 
 
     public Student() {
 
     }
 
-    public Student(Integer id, String firstName, String lastName, String ssn, String course) {
+    public Student(Integer id, String firstName, String lastName, String ssn, String discipline) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssn = ssn;
-        this.course = course;
+        this.discipline = discipline;
 
     }
 
@@ -69,12 +69,12 @@ public class Student {
         this.ssn = ssn;
     }
 
-    public String getCourse() {
-        return course;
+    public String getDiscipline() {
+        return discipline;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setDiscipline(String discipline) {
+        this.discipline = discipline;
     }
 
 
