@@ -1,6 +1,8 @@
 package br.com.logos.service;
 
-import br.com.logos.exceptions.DiscilpineNameNullException;
+import br.com.logos.exceptions.CourseCoordinatorException;
+import br.com.logos.exceptions.CourseDirectorNullException;
+import br.com.logos.exceptions.CourseNameNullException;
 import br.com.logos.models.Course;
 import br.com.logos.models.Discipline;
 import br.com.logos.models.Teacher;
@@ -83,7 +85,13 @@ public class CourseService {
     public boolean validateCourse(@Valid Course courseValidated) {
 
         if (courseValidated.getName().isEmpty()) {
-            throw new DiscilpineNameNullException("Discipline name cannot be empty. Please, type a valid name");
+            throw new CourseNameNullException("Course name cannot be empty. Please, type a valid name");
+        }
+        if(courseValidated.getCoordinator().isEmpty()){
+            throw  new CourseCoordinatorException("Course coordinator it's null! Please, type a name");
+        }
+        if(courseValidated.getDirector().isEmpty()){
+            throw new CourseDirectorNullException("Director's name it's empty. Please, enter a valid name");
         }
         return false;
     }

@@ -9,8 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface DisciplineRepository extends CrudRepository<Discipline, Integer> {
-
-    Optional<Discipline> findById(Integer id);
 }
 
 
