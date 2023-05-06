@@ -1,15 +1,17 @@
 package br.com.logos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
 public class Student {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "student_id")
     private Integer id;
     @Column(nullable = false, name = "student_firstname")
     private String firstName;
@@ -20,21 +22,26 @@ public class Student {
     @Column(nullable = false, length = 12, name = "student_ssn")
     private String ssn;
 
-    @Column(nullable = false, name = "student_course")
-    private String discipline;
+    @JsonIgnore
+    @ManyToMany
+    private List<Discipline> disciplines;
 
+    @JsonIgnore
+    @ManyToMany
+    private List<Teacher> teachers;
+
+    @JsonIgnore
+    @ManyToMany
+    private List<Course> courses;
 
     public Student() {
-
     }
 
-    public Student(Integer id, String firstName, String lastName, String ssn, String discipline) {
+    public Student(Integer id, String firstName, String lastName, String ssn) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.ssn = ssn;
-        this.discipline = discipline;
-
     }
 
     public Integer getId() {
@@ -69,13 +76,27 @@ public class Student {
         this.ssn = ssn;
     }
 
-    public String getDiscipline() {
-        return discipline;
+    public List<Discipline> getDisciplines() {
+        return disciplines;
     }
 
-    public void setDiscipline(String discipline) {
-        this.discipline = discipline;
+    public void setDisciplines(List<Discipline> disciplines) {
+        this.disciplines = disciplines;
     }
 
+    public List<Teacher> getTeachers() {
+        return teachers;
+    }
 
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
 }

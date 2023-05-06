@@ -4,9 +4,16 @@ import br.com.logos.models.Discipline;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface DisciplineRepository extends CrudRepository<Discipline,Integer> {
+import java.util.List;
+import java.util.Optional;
 
+@Repository
+public interface DisciplineRepository extends CrudRepository<Discipline, Integer> {
+
+    Optional<Discipline> findById(Integer id);
 }
+
+
+
 
 

@@ -2,7 +2,7 @@ package br.com.logos.resources;
 
 import br.com.logos.exceptions.TeacherNotFoundException;
 import br.com.logos.models.Teacher;
-import br.com.logos.resources.service.TeacherService;
+import br.com.logos.service.TeacherService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/teachers")
 public class TeacherResources {
-
 
     private final TeacherService teacherService;
 

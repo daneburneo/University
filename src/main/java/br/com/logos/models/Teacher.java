@@ -1,6 +1,10 @@
 package br.com.logos.models;
 
+import com.fasterxml.jackson.annotation.JacksonAnnotation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
@@ -8,6 +12,7 @@ public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="teacher_id")
     private Integer id;
     @Column(nullable = false, name = "teacher_firstname")
     private String firstName;
@@ -19,6 +24,18 @@ public class Teacher {
     private String graduation;
     @Column(nullable = false, length = 40, name = "teacher_email")
     private String email;
+
+    @JsonIgnore
+    @ManyToMany
+    private List<Course> courses;
+
+    @JsonIgnore
+    @ManyToMany
+    private List<Student> students;
+
+    @JsonIgnore
+    @ManyToMany
+    private List<Discipline> disciplines;
 
     public Teacher() {
     }
@@ -78,5 +95,29 @@ public class Teacher {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public List<Discipline> getDisciplines() {
+        return disciplines;
+    }
+
+    public void setDisciplines(List<Discipline> disciplines) {
+        this.disciplines = disciplines;
     }
 }

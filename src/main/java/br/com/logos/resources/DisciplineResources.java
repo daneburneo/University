@@ -1,8 +1,9 @@
 package br.com.logos.resources;
 
+import br.com.logos.dtos.DisciplineDTO;
 import br.com.logos.exceptions.TeacherNotFoundException;
 import br.com.logos.models.Discipline;
-import br.com.logos.resources.service.DisciplineService;
+import br.com.logos.service.DisciplineService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,10 +34,10 @@ public class DisciplineResources {
             return ResponseEntity.notFound().build();
         }
     }
-
     @PostMapping
-    public Discipline newDiscipline(@RequestBody @Valid Discipline newDiscipline) {
-        return disciplineService.newDiscipline(newDiscipline);
+    public Discipline newDiscipline(@RequestBody @Valid DisciplineDTO newDiscipline) {
+        Discipline discipline = disciplineService.newDiscipline(newDiscipline);
+        return discipline;
 
     }
 
@@ -47,8 +48,7 @@ public class DisciplineResources {
 
     @DeleteMapping("/{id}")
     public void deleteDiscipline(@PathVariable("id") int id) throws Exception {
-        disciplineService.getOneDisciplineById(id);
+        disciplineService.deleteDiscipline(id);
     }
-
 }
 
