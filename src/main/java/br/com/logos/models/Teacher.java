@@ -25,16 +25,13 @@ public class Teacher {
     @Column(nullable = false, length = 40, name = "teacher_email")
     private String email;
 
-    @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "teachers")
     private List<Course> courses;
 
-    @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "teachers")
     private List<Student> students;
 
-    @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "teachers")
     private List<Discipline> disciplines;
 
     public Teacher() {

@@ -21,23 +21,36 @@ public class Course {
     @Column(name = "course_director")
     String director;
 
-
     @JsonIgnore
     @ManyToMany
+    @JoinTable(
+            name = "courses_disciplines",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "discipline_id")
+    )
     private List<Discipline> disciplines;
 
     @JsonIgnore
     @ManyToMany
+    @JoinTable(name = "courses_teachers",
+            joinColumns = @JoinColumn(name = "course_fk"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_fk"))
     private List<Teacher> teachers;
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students;
+
 
     public Course() {
     }
+
     public Course(Integer id, String name, String coordinator, String level, String director) {
         this.id = id;
         this.name = name;
         this.coordinator = coordinator;
         this.level = level;
         this.director = director;
+
     }
 
     public Integer getId() {
@@ -88,13 +101,19 @@ public class Course {
         this.disciplines = disciplines;
     }
 
-    public void setTeachers(List<Teacher> teachers) {
-        this.teachers = teachers;
-    }
-
     public List<Teacher> getTeachers() {
         return teachers;
     }
 
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
+    }
 
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 }

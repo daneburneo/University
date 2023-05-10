@@ -1,4 +1,5 @@
 package br.com.logos.models;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -11,32 +12,35 @@ public class Discipline {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="discipline_id")
+    @Column(name = "discipline_id")
     private Integer id;
 
     @Column(nullable = false, name = "discipline_name")
     private String name;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(mappedBy = "disciplines")
     private List<Course> courses;
 
-    @JsonIgnore
     @ManyToMany
+    @JoinTable(name = "disciplines_teachers",
+            joinColumns = @JoinColumn(name = "discipline_fk"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_fk"))
     private List<Teacher> teachers;
 
-
     @JsonIgnore
     @ManyToMany
+    @JoinTable(name = "disciplines_students",
+            joinColumns = @JoinColumn(name = "discipline_fk"),
+            inverseJoinColumns = @JoinColumn(name = "student_fk"))
     private List<Student> students;
 
     public Discipline() {
     }
 
-    public Discipline(Integer id, String name, List<Course> courses) {
+    public Discipline(Integer id, String name) {
         this.id = id;
         this.name = name;
-        this.courses = courses;
     }
 
     public Integer getId() {
@@ -55,6 +59,15 @@ public class Discipline {
         this.name = name;
     }
 
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
     public List<Course> getCourses() {
         return courses;
     }
@@ -69,13 +82,5 @@ public class Discipline {
 
     public void setTeachers(List<Teacher> teachers) {
         this.teachers = teachers;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 }

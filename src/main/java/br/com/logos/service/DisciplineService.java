@@ -20,7 +20,7 @@ public class DisciplineService {
 
     private final DisciplineRepository disciplineRepository;
     private final CourseRepository courseRepository;
-    private TeacherRepository teacherRepository;
+    private final TeacherRepository teacherRepository;
 
     private StudentRepository studentRepository;
 

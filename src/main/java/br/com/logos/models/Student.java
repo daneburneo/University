@@ -22,16 +22,20 @@ public class Student {
     @Column(nullable = false, length = 12, name = "student_ssn")
     private String ssn;
 
-    @JsonIgnore
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "students")
     private List<Discipline> disciplines;
 
-    @JsonIgnore
     @ManyToMany
+    @JoinTable(name = "students_teachers",
+            joinColumns = @JoinColumn(name = "student_fk"),
+            inverseJoinColumns= @JoinColumn (name = "teacher_fk"))
     private List<Teacher> teachers;
 
-    @JsonIgnore
     @ManyToMany
+    @JoinTable(name = "students_courses",
+            joinColumns = @JoinColumn(name = "student_fk"),
+            inverseJoinColumns= @JoinColumn (name = "course_fk"))
     private List<Course> courses;
 
     public Student() {

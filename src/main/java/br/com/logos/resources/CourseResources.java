@@ -1,6 +1,6 @@
 package br.com.logos.resources;
 
-import br.com.logos.exceptions.TeacherNotFoundException;
+import br.com.logos.exceptions.CourseNotFoundException;
 import br.com.logos.models.Course;
 import br.com.logos.service.CourseService;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class CourseResources {
             Course course = courseService.getOneCourseById(id);
             return ResponseEntity.ok(course);
 
-        } catch (TeacherNotFoundException courseNotFoundException) {
+        } catch (CourseNotFoundException courseNotFoundException) {
             return ResponseEntity.notFound().build();
         }
     }
