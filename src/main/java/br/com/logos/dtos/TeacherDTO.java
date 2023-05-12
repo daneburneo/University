@@ -11,9 +11,7 @@ public class TeacherDTO {
     private Integer courseId;
     private Integer studentId;
 
-    public TeacherDTO() {
-    }
-
+   
     public Integer getId() {
         return id;
     }

@@ -1,6 +1,5 @@
 package br.com.logos.dtos;
 
-import br.com.logos.models.Course;
 
 public class DisciplineDTO {
     private Integer id;

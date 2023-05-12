@@ -29,12 +29,12 @@ public class CourseService {
     }
     public Course getOneCourseById(int id) throws Exception {
 
-        Optional<Course> validation = courseRepository.findById(id);
+        Optional<Course> course = courseRepository.findById(id);
 
-        if (validation.isEmpty() || validation.equals(null)) {
+        if (course.isEmpty() || course.equals(null)) {
             throw new Exception("This id is invalid. Please, type another id.");
         } else {
-            return validation.get();
+            return course.get();
         }
     }
     public Iterable<Course> getAllCourses() {
