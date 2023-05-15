@@ -1,6 +1,5 @@
 package br.com.logos.resources;
 
-import br.com.logos.dtos.CourseDTO;
 import br.com.logos.exceptions.CourseNotFoundException;
 import br.com.logos.models.Course;
 import br.com.logos.service.CourseService;
