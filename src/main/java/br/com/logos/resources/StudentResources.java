@@ -6,7 +6,7 @@ import br.com.logos.models.Student;
 import br.com.logos.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/students")

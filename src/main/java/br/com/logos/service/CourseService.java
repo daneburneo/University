@@ -10,7 +10,7 @@ import br.com.logos.repositories.CourseRepository;
 import br.com.logos.repositories.DisciplineRepository;
 import br.com.logos.repositories.TeacherRepository;
 import org.springframework.stereotype.Service;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
