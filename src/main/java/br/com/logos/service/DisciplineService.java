@@ -63,21 +63,20 @@ public class DisciplineService {
 
         discipline.setName(disciplineDto.getName());
         discipline.setId(disciplineDto.getId());
-
-        Optional<Course> courseOptional = courseRepository.findById(5);
+        Optional<Course> courseOptional = courseRepository.findById(1);
         List<Course> courses = new ArrayList<>();
         courses.add(courseOptional.get());
         discipline.setCourses(courses);
 
-        Optional<Teacher> teacherOptional = teacherRepository.findById(3);
-        List<Teacher> teachers  = new ArrayList<>();
-        teachers.add(teacherOptional.get());
-        discipline.setTeachers(teachers);
-
-        Optional< Student> studentOptional = studentRepository.findById(3);
-        List<Student> students = new ArrayList<>();
-        students.add(studentOptional.get());
-        discipline.setStudents(students);
+//        Optional<Teacher> teacherOptional = teacherRepository.findById(0);
+//        List<Teacher> teachers  = new ArrayList<>();
+//        teachers.add(teacherOptional.get());
+//        discipline.setTeachers(teachers);
+//
+//        Optional< Student> studentOptional = studentRepository.findById(0);
+//        List<Student> students = new ArrayList<>();
+//        students.add(studentOptional.get());
+//        discipline.setStudents(students);
 
 
         return disciplineRepository.save(discipline);

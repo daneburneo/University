@@ -11,6 +11,7 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "course_id")
     Integer id;
     @Column(name = "course_name")
     String name;
@@ -21,12 +22,12 @@ public class Course {
     @Column(name = "course_director")
     String director;
 
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(
             name = "courses_disciplines",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "discipline_id")
+            joinColumns = @JoinColumn(name = "course_fk"),
+            inverseJoinColumns = @JoinColumn(name = "discipline_fk")
     )
     private List<Discipline> disciplines;
 
@@ -37,6 +38,7 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "teacher_fk"))
     private List<Teacher> teachers;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "courses")
     private List<Student> students;
 

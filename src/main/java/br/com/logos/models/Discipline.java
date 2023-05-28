@@ -17,10 +17,11 @@ public class Discipline {
     @Column(nullable = false, name = "discipline_name")
     private String name;
 
-    @JsonIgnore
+
     @ManyToMany(mappedBy = "disciplines")
     private List<Course> courses;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "disciplines_teachers",
             joinColumns = @JoinColumn(name = "discipline_fk"),

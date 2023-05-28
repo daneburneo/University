@@ -1,5 +1,10 @@
 package br.com.logos.dtos;
 
+import br.com.logos.models.Discipline;
+import br.com.logos.models.Teacher;
+
+import java.util.List;
+
 public class CourseDTO {
 
     private Integer id;
@@ -7,8 +12,8 @@ public class CourseDTO {
     private String coordinator;
     private String level;
     private String director;
-    private Integer disciplineId;
-    private Integer teacherId;
+    private List<Discipline> disciplinesList;
+    private List<Teacher> teachersList;
 
 
     public Integer getId() {
@@ -51,20 +56,20 @@ public class CourseDTO {
         this.director = director;
     }
 
-    public Integer getDisciplineId() {
-        return disciplineId;
+    public List<Discipline> getDisciplinesList() {
+        return disciplinesList;
     }
 
-    public void setDisciplineId(Integer disciplineId) {
-        this.disciplineId = disciplineId;
+    public void setDisciplinesList(List<Discipline> disciplinesList) {
+        this.disciplinesList = disciplinesList;
     }
 
-    public Integer getTeacherId() {
-        return teacherId;
+    public List<Teacher> getTeachersList() {
+        return teachersList;
     }
 
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
+    public void setTeachersList(List<Teacher> teachersList) {
+        this.teachersList = teachersList;
     }
 }
 

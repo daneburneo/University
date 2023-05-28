@@ -1,16 +1,21 @@
 package br.com.logos.service;
 
+import br.com.logos.dtos.CourseDTO;
 import br.com.logos.exceptions.CourseCoordinatorException;
 import br.com.logos.exceptions.CourseDirectorNullException;
 import br.com.logos.exceptions.CourseNameNullException;
+import br.com.logos.exceptions.CourseNotFoundException;
 import br.com.logos.models.Course;
 import br.com.logos.models.Discipline;
+import br.com.logos.models.DisciplineSemester;
 import br.com.logos.models.Teacher;
 import br.com.logos.repositories.CourseRepository;
 import br.com.logos.repositories.DisciplineRepository;
 import br.com.logos.repositories.TeacherRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import jakarta.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +33,39 @@ public class CourseService {
         this.teacherRepository = teacherRepository;
         this.disciplineRepository = disciplineRepository;
     }
+
+
+    public DisciplineSemester getCourseWithDisciplinesBySemester(Integer courseId) {
+
+        Optional<Course> courseOptional = courseRepository.findById(courseId);
+        Course course = courseOptional.get();
+        List<Discipline> disciplines = course.getDisciplines();
+        List<Discipline> firstSemester = new ArrayList<>();
+        List<Discipline> secondSemester = new ArrayList<>();
+
+        if (courseOptional.isPresent()) {
+
+
+            for (int i = 0; i < disciplines.size(); i++) {
+                Discipline discipline = disciplines.get(i);
+                Integer disciplineId = discipline.getId();
+                if (disciplineId <= 6) {
+                    firstSemester.add(discipline);
+                } else {
+                    secondSemester.add(discipline);
+                }
+            }
+
+        } else {
+            throw new CourseNotFoundException("This course doesn't exists");
+        }
+
+        DisciplineSemester disciplinesBySemester = new DisciplineSemester(firstSemester, secondSemester);
+        return ResponseEntity.ok(disciplinesBySemester).getBody();
+
+    }
+
+
     public Course getOneCourseById(int id) throws Exception {
 
         Optional<Course> course = courseRepository.findById(id);
@@ -38,10 +76,12 @@ public class CourseService {
             return course.get();
         }
     }
+
     public Iterable<Course> getAllCourses() {
         return courseRepository.findAll();
     }
-    public Course updateCourse(int id, Course courseToBeUpdated) {
+
+    public Course updateCourse(int id, CourseDTO courseToBeUpdated) {
 
         Course courseUpdated = courseRepository.findById(id).get();
 
@@ -50,12 +90,13 @@ public class CourseService {
         courseUpdated.setDirector(courseToBeUpdated.getDirector());
         courseUpdated.setCoordinator(courseToBeUpdated.getCoordinator());
         courseUpdated.setId(courseUpdated.getId());
-        courseUpdated.setTeachers(courseToBeUpdated.getTeachers());
-        courseUpdated.setDisciplines(courseToBeUpdated.getDisciplines());
+        courseUpdated.setTeachers(courseToBeUpdated.getTeachersList());
+        courseUpdated.setDisciplines(courseToBeUpdated.getDisciplinesList());
 
-       return courseRepository.save(courseUpdated);
-   }
-    public Course newCourse(Course courseDto) {
+        return courseRepository.save(courseUpdated);
+    }
+
+    public Course newCourse(CourseDTO courseDto) {
         validateCourse(courseDto);
 
         Course course = new Course();
@@ -65,16 +106,10 @@ public class CourseService {
         course.setDirector(courseDto.getDirector());
         course.setCoordinator(courseDto.getCoordinator());
         course.setLevel(courseDto.getLevel());
-
-        Optional<Discipline> disciplineOptional = disciplineRepository.findById(2);
-        List<Discipline> disciplines = new ArrayList<>();
-        disciplines.add(disciplineOptional.get());
-        course.setDisciplines(disciplines);
-
-        Optional<Teacher> teacherOptional = teacherRepository.findById(2);
-        List<Teacher> teachers = new ArrayList<>();
-        teachers.add(teacherOptional.get());
-        course.setTeachers(teachers);
+        Iterable<Discipline> disciplinesList = disciplineRepository.findAll();
+        course.setDisciplines(courseDto.getDisciplinesList());
+        Iterable<Teacher> teachersList = teacherRepository.findAll();
+        course.setTeachers(courseDto.getTeachersList());
 
         return courseRepository.save(course);
     }
@@ -83,15 +118,15 @@ public class CourseService {
         courseRepository.deleteById(id);
     }
 
-    public boolean validateCourse(@Valid Course courseValidated) {
+    public boolean validateCourse(@Valid CourseDTO courseValidated) {
 
         if (courseValidated.getName().isEmpty()) {
             throw new CourseNameNullException("Course name cannot be empty. Please, type a valid name");
         }
-        if(courseValidated.getCoordinator().isEmpty()){
-            throw  new CourseCoordinatorException("Course coordinator it's null! Please, type a name");
+        if (courseValidated.getCoordinator().isEmpty()) {
+            throw new CourseCoordinatorException("Course coordinator it's null! Please, type a name");
         }
-        if(courseValidated.getDirector().isEmpty()){
+        if (courseValidated.getDirector().isEmpty()) {
             throw new CourseDirectorNullException("Director's name it's empty. Please, enter a valid name");
         }
         return false;
