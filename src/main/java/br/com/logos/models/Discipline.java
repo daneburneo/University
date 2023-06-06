@@ -2,6 +2,7 @@ package br.com.logos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Discipline {
     @Column(nullable = false, name = "discipline_name")
     private String name;
 
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "disciplines")
     private List<Course> courses;
 

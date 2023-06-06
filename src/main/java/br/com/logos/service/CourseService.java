@@ -7,7 +7,6 @@ import br.com.logos.exceptions.CourseNameNullException;
 import br.com.logos.exceptions.CourseNotFoundException;
 import br.com.logos.models.Course;
 import br.com.logos.models.Discipline;
-import br.com.logos.models.DisciplineSemester;
 import br.com.logos.models.Teacher;
 import br.com.logos.repositories.CourseRepository;
 import br.com.logos.repositories.DisciplineRepository;
@@ -16,9 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import jakarta.validation.Valid;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -35,16 +32,23 @@ public class CourseService {
     }
 
 
-    public DisciplineSemester getCourseWithDisciplinesBySemester(Integer courseId) {
+
+//    public Course getCourseByName(String courseName){
+//
+//        Optional<Course> courseOptional = courseRepository.findCourseByName();
+//
+//    }
+
+    public Map<String, List<Discipline>> getCourseWithDisciplinesBySemester(Integer courseId) {
 
         Optional<Course> courseOptional = courseRepository.findById(courseId);
         Course course = courseOptional.get();
+
         List<Discipline> disciplines = course.getDisciplines();
         List<Discipline> firstSemester = new ArrayList<>();
         List<Discipline> secondSemester = new ArrayList<>();
 
         if (courseOptional.isPresent()) {
-
 
             for (int i = 0; i < disciplines.size(); i++) {
                 Discipline discipline = disciplines.get(i);
@@ -60,9 +64,11 @@ public class CourseService {
             throw new CourseNotFoundException("This course doesn't exists");
         }
 
-        DisciplineSemester disciplinesBySemester = new DisciplineSemester(firstSemester, secondSemester);
-        return ResponseEntity.ok(disciplinesBySemester).getBody();
+        Map<String, List<Discipline>> disciplinesSemester = new HashMap<>();
+        disciplinesSemester.put("firstSemester", firstSemester);
+        disciplinesSemester.put("secondSemester", secondSemester);
 
+        return ResponseEntity.ok(disciplinesSemester).getBody();
     }
 
 
@@ -106,8 +112,7 @@ public class CourseService {
         course.setDirector(courseDto.getDirector());
         course.setCoordinator(courseDto.getCoordinator());
         course.setLevel(courseDto.getLevel());
-        Iterable<Discipline> disciplinesList = disciplineRepository.findAll();
-        course.setDisciplines(courseDto.getDisciplinesList());
+        course.setDisciplines((List<Discipline>) disciplineRepository.findAll());
         Iterable<Teacher> teachersList = teacherRepository.findAll();
         course.setTeachers(courseDto.getTeachersList());
 

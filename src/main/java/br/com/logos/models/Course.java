@@ -22,7 +22,6 @@ public class Course {
     @Column(name = "course_director")
     String director;
 
-
     @ManyToMany
     @JoinTable(
             name = "courses_disciplines",
