@@ -14,9 +14,7 @@ public class StudentResources {
 
     private final StudentService studentService;
 
-    public StudentResources(StudentService studentService) {
-        this.studentService = studentService;
-    }
+    public StudentResources(StudentService studentService) { this.studentService = studentService;}
 
     @GetMapping
     public Iterable<Student> getAllStudents() {  return studentService.getAllStudents();

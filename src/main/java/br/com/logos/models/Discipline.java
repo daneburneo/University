@@ -18,6 +18,10 @@ public class Discipline {
     @Column(nullable = false, name = "discipline_name")
     private String name;
 
+    @Column(name = "discipline_semester")
+    private String semester;
+
+
     @JsonIgnore
     @ManyToMany(mappedBy = "disciplines")
     private List<Course> courses;
@@ -36,12 +40,29 @@ public class Discipline {
             inverseJoinColumns = @JoinColumn(name = "student_fk"))
     private List<Student> students;
 
+
+    @ManyToMany
+    @JoinTable(name = "disciplines_semesters",
+    joinColumns = @JoinColumn(name = "discipline_fk"),
+    inverseJoinColumns = @JoinColumn(name = "semester_fk"))
+    private List<Discipline> disciplines;
+
+    @ManyToMany
+    @JoinTable(name = "disciplines_semesters",
+            joinColumns = @JoinColumn(name = "discipline_fk"),
+            inverseJoinColumns = @JoinColumn(name = "semester_fk"))
+    private List<Semester> semesters;
+
+
+
+
     public Discipline() {
     }
 
-    public Discipline(Integer id, String name) {
+    public Discipline(Integer id, String name, String semester) {
         this.id = id;
         this.name = name;
+        this.semester=semester;
     }
 
     public Integer getId() {
@@ -60,13 +81,12 @@ public class Discipline {
         this.name = name;
     }
 
-
-    public List<Student> getStudents() {
-        return students;
+    public String getSemester() {
+        return semester;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setSemester(String semester) {
+        this.semester = semester;
     }
 
     public List<Course> getCourses() {
@@ -83,5 +103,13 @@ public class Discipline {
 
     public void setTeachers(List<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

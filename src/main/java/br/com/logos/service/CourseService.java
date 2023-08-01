@@ -4,19 +4,17 @@ import br.com.logos.dtos.CourseDTO;
 import br.com.logos.exceptions.CourseCoordinatorException;
 import br.com.logos.exceptions.CourseDirectorNullException;
 import br.com.logos.exceptions.CourseNameNullException;
-import br.com.logos.exceptions.CourseNotFoundException;
 import br.com.logos.models.Course;
 import br.com.logos.models.Discipline;
+import br.com.logos.models.Semester;
 import br.com.logos.models.Teacher;
 import br.com.logos.repositories.CourseRepository;
 import br.com.logos.repositories.DisciplineRepository;
 import br.com.logos.repositories.TeacherRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import jakarta.validation.Valid;
 
 import java.util.*;
-
 
 @Service
 public class CourseService {
@@ -31,46 +29,23 @@ public class CourseService {
         this.disciplineRepository = disciplineRepository;
     }
 
-
-
-//    public Course getCourseByName(String courseName){
+//    public Map<String, List<Discipline>> getCourseWithDisciplinesBySemester(Integer courseId) {
 //
-//        Optional<Course> courseOptional = courseRepository.findCourseByName();
+//        Course course = courseRepository.findById(courseId);
 //
+//        Map<String, List<Discipline>> disciplineMap = new HashMap<>();
+//        List<Semester> semesters = course. ();
+//
+//        for (Semester semester : semesters) {
+//            List<Discipline> disciplines = semester.getDisciplines();
+//            disciplineMap.put(semester.getName(), disciplines);
+//        }
+//
+//        return disciplineMap;
 //    }
 
-    public Map<String, List<Discipline>> getCourseWithDisciplinesBySemester(Integer courseId) {
 
-        Optional<Course> courseOptional = courseRepository.findById(courseId);
-        Course course = courseOptional.get();
-
-        List<Discipline> disciplines = course.getDisciplines();
-        List<Discipline> firstSemester = new ArrayList<>();
-        List<Discipline> secondSemester = new ArrayList<>();
-
-        if (courseOptional.isPresent()) {
-
-            for (int i = 0; i < disciplines.size(); i++) {
-                Discipline discipline = disciplines.get(i);
-                Integer disciplineId = discipline.getId();
-                if (disciplineId <= 6) {
-                    firstSemester.add(discipline);
-                } else {
-                    secondSemester.add(discipline);
-                }
-            }
-
-        } else {
-            throw new CourseNotFoundException("This course doesn't exists");
-        }
-
-        Map<String, List<Discipline>> disciplinesSemester = new HashMap<>();
-        disciplinesSemester.put("firstSemester", firstSemester);
-        disciplinesSemester.put("secondSemester", secondSemester);
-
-        return ResponseEntity.ok(disciplinesSemester).getBody();
-    }
-
+//}
 
     public Course getOneCourseById(int id) throws Exception {
 

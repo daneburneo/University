@@ -114,4 +114,5 @@ public class Teacher {
     public void setDisciplines(List<Discipline> disciplines) {
         this.disciplines = disciplines;
     }
+
 }

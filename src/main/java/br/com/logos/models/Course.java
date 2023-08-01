@@ -41,17 +41,12 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     private List<Student> students;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "course")
+    private List<Semester> list;
+
 
     public Course() {
-    }
-
-    public Course(Integer id, String name, String coordinator, String level, String director) {
-        this.id = id;
-        this.name = name;
-        this.coordinator = coordinator;
-        this.level = level;
-        this.director = director;
-
     }
 
     public Integer getId() {
@@ -117,4 +112,14 @@ public class Course {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
+
+    public List<Semester> getList() {
+        return list;
+    }
+
+    public void setList(List<Semester> list) {
+        this.list = list;
+    }
+
+
 }

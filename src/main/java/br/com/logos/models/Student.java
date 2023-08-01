@@ -20,7 +20,6 @@ public class Student {
     @Column(nullable = false, length = 12, name = "student_ssn")
     private String ssn;
 
-
     @ManyToMany(mappedBy = "students")
     private List<Discipline> disciplines;
 
@@ -35,6 +34,7 @@ public class Student {
             joinColumns = @JoinColumn(name = "student_fk"),
             inverseJoinColumns= @JoinColumn (name = "course_fk"))
     private List<Course> courses;
+
 
     public Student() {
     }

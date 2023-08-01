@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("/courses")
 public class CourseResources {
@@ -45,16 +44,18 @@ public class CourseResources {
             return ResponseEntity.notFound().build();
         }
     }
-    @GetMapping("/{id}/disciplines")
-    public ResponseEntity<Map<String, List<Discipline>>> getCourseWithDisciplinesBySemester(@PathVariable ("id") int courseId){
-          try{
-            Map<String, List<Discipline>> disciplineMap = courseService.getCourseWithDisciplinesBySemester(courseId);
-            return ResponseEntity.ok(disciplineMap);
 
-        }catch (CourseNotFoundException courseNotFoundException){
-              return ResponseEntity.notFound().build();
-          }
-    }
+//    @GetMapping("/{id}/disciplines")
+//    public ResponseEntity<Map<String, List<Discipline>>> getCourseWithDisciplinesBySemester(@PathVariable("id") int courseId) {
+//        try {
+//            Map<String, List<Discipline>> disciplineMap = courseService. (courseId)
+//            return ResponseEntity.ok(disciplineMap);
+//
+//        } catch (CourseNotFoundException courseNotFoundException) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+
     @PostMapping
     public Course newCourse(@RequestBody CourseDTO newCourse) {
         return courseService.newCourse(newCourse);
@@ -67,6 +68,6 @@ public class CourseResources {
 
     @DeleteMapping("/{id}")
     public void deleteCourse(@PathVariable("id") int id) throws Exception {
-       courseService.deleteCourse(id);
+        courseService.deleteCourse(id);
     }
 }

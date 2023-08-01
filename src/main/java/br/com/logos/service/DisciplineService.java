@@ -82,8 +82,7 @@ public class DisciplineService {
         return disciplineRepository.save(discipline);
     }
 
-    public void deleteDiscipline(int id) {
-        disciplineRepository.deleteById(id);
+    public void deleteDiscipline(int id) { disciplineRepository.deleteById(id);
     }
 
     public boolean validateDiscipline(DisciplineDTO disciplineValidated) {

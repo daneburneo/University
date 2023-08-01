@@ -1,17 +1,18 @@
 create table courses
 (
     course_id          int (11)  not null primary key auto_increment,
-    course_name        varchar(25) not null,
+    course_name        varchar(50) not null,
     course_coordinator varchar(30) not null,
-    course_level       varchar(10) not null,
-    course_director    varchar(20) not null
+    course_level       varchar(20) not null,
+    course_director    varchar(30) not null
 );
 
 create table disciplines
 (
 
     discipline_id   int (11) not null primary key auto_increment,
-    discipline_name varchar(20) not null
+    discipline_name varchar(30) not null
+    discipline_semester varchar(30) not null
 
 );
 
@@ -19,20 +20,20 @@ create table students
 (
 
     student_id        int (11)        not null primary key auto_increment,
-    student_firstname varchar(20) not null,
-    student_lastname  varchar(20) not null,
-    student_ssn       varchar(20) not null
+    student_firstname varchar(30) not null,
+    student_lastname  varchar(30) not null,
+    student_ssn       varchar(30) not null
 );
 
 create table teachers
 (
 
     teacher_id         int   (11)      not null primary key auto_increment,
-    teacher_firstname  varchar(20) not null,
-    teacher_lastname   varchar(20) not null,
+    teacher_firstname  varchar(30) not null,
+    teacher_lastname   varchar(30) not null,
     teacher_ssn        int         not null,
-    teacher_graduation varchar(20) not null,
-    teacher_email      varchar(20) not null
+    teacher_graduation varchar(30) not null,
+    teacher_email      varchar(30) not null
 );
 
 create table courses_disciplines
